@@ -1,4 +1,4 @@
-import { Beer, Cigar, Eletronics, Item, TaxItem, Water } from './item';
+import { AbstractClassError, Beer, Cigar, Eletronics, Item, TaxItem, Water } from './item';
 import Order from './order';
 
 test('Deve criar um pedido e calcular o total', function () {
@@ -19,4 +19,9 @@ test('Deve criar um pedido e calcular os impostos', function () {
   order.addItem(new Water('Water', 'Crystal', 1));
   const taxes = order.getTaxes();
   expect(taxes).toBe(3903.7);
+});
+
+test('Não deve permitir criar instâncias das classes abstratas "Item" e "TaxItem"', function () {
+  expect(() => new Item('Beer', 'Brahma', 6)).toThrowError(AbstractClassError);
+  expect(() => new TaxItem('Beer', 'Brahma', 6)).toThrowError(AbstractClassError);
 });

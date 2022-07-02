@@ -1,3 +1,10 @@
+export class AbstractClassError extends Error {
+  constructor() {
+    super(); // (1)
+    this.name = 'AbstractClassError'; // (2)
+    this.message = "Abstract classes can't be instantiated";
+  }
+}
 export class Item {
   category: string;
   description: string;
@@ -5,7 +12,7 @@ export class Item {
 
   constructor(category: string, description: string, price: number) {
     if (this.constructor === Item) {
-      throw new Error("Abstract classes can't be instantiated.");
+      throw new AbstractClassError();
     }
 
     this.category = category;
@@ -19,7 +26,7 @@ export class TaxItem extends Item {
     super(category, description, price);
 
     if (this.constructor === TaxItem) {
-      throw new Error("Abstract classes can't be instantiated.");
+      throw new AbstractClassError();
     }
   }
   calculateTax = (tax: number) => this.price * tax;
