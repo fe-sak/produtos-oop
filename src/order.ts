@@ -1,21 +1,25 @@
-import Item from './item';
+import { Beer, Cigar, Eletronics, Water } from './item';
+
+type products = Beer | Cigar | Eletronics | Water;
 
 export default class Order {
-  items: Item[];
+  items: products[];
 
   constructor() {
     this.items = [];
   }
 
-  addItem(item: Item) {
+  addItem(item: products) {
     this.items.push(item);
   }
 
-  getTotal() {
-    return this.items.reduce((acc, curr) => acc + curr.price, 0);
-  }
+  getTotal = () => this.items.reduce((acc, curr) => acc + curr.price, 0);
 
-  getTaxes() {
-    return this.items.reduce((acc, curr) => acc + curr.tax * curr.price, 0);
-  }
+  getTaxes = () =>
+    this.items.reduce((acc, curr) => {
+      if (!(curr instanceof Water)) {
+        const tax = curr.getTax();
+        return acc + curr.calculateTax(tax);
+      } else return acc;
+    }, 0);
 }
