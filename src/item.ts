@@ -5,6 +5,7 @@ export class AbstractClassError extends Error {
     this.message = "Abstract classes can't be instantiated";
   }
 }
+
 export class Item {
   category: string;
   description: string;
